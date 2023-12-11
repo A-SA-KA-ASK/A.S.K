@@ -1,0 +1,22 @@
+server:
+  port: 7777
+
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/ask
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+logging:
+  level:
+    org.hibernate.sql: debug
