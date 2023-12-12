@@ -1,13 +1,20 @@
+import { Route, Routes } from "react-router-dom";
+import Footer from "./layout/Footer";
+import Header from "./layout/Header";
+import Section from "./layout/Section";
 
 function App() {
 
   // Tailwind CSS / react-icons / react-router-dom 으로 초기 진행 예정
 
   return (
-    <div className="text-blue-500 text-xl font-bold">
-      초기 페이지 생성
-      
-    </div>
+    <>
+      <Header />
+        <Routes>
+          <Route path="/" element={<Section />} />
+        </Routes>
+      <Footer />
+    </>
   );
 }
 
