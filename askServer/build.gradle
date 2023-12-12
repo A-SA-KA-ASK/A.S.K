@@ -28,6 +28,12 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+	// Valid
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('bootBuildImage') {
