@@ -6,4 +6,5 @@ import org.springframework.http.ResponseEntity;
 public interface MemberService {
 
     ResponseEntity<String> join(String id, String password, @NotBlank String nickname);
+    ResponseEntity<String> login(@NotBlank String id, @NotBlank String password);
 }
