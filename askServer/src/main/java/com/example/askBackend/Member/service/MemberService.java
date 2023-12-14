@@ -7,4 +7,7 @@ public interface MemberService {
 
     ResponseEntity<String> join(String id, String password, @NotBlank String nickname);
     ResponseEntity<String> login(@NotBlank String id, @NotBlank String password);
+    ResponseEntity<Boolean> checkIdDuplication(String id);
+
+    ResponseEntity<Boolean> checkNicknameDuplication(String nickname);
 }

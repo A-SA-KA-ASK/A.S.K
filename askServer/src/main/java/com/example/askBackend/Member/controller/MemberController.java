@@ -30,9 +30,37 @@ public class MemberController {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping("/join")
-    public ResponseEntity<String> join(@Valid @RequestBody MemberJoinRequestDto dto){
+    public ResponseEntity<String> join(@Valid @RequestBody MemberJoinRequestDto.JoinDto dto){
 
         return memberService.join(dto.getId(), dto.getPassword(), dto.getNickname());
+    }
+
+    @Operation(summary = "아이디 중복 체크 ", description = "회원 가입 아이디 중복 체크 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "아이디 사용 가능"),
+            @ApiResponse(responseCode = "400", description = "잘못된 정보가 전달됨"),
+            @ApiResponse(responseCode = "409", description = "아이디 중복, 사용 불가능"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @PostMapping("/join/checkIdDub")
+    public ResponseEntity<Boolean> checkIdDuplication(@Valid @RequestBody MemberJoinRequestDto.CheckIdDuplicationDto dto){
+        log.info(dto.getId());
+
+        return memberService.checkIdDuplication(dto.getId());
+    }
+
+    @Operation(summary = "닉네임 중복 체크 ", description = "회원 가입 닉네임 중복 체크 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "닉네임 사용 가능"),
+            @ApiResponse(responseCode = "400", description = "잘못된 정보가 전달됨"),
+            @ApiResponse(responseCode = "409", description = "닉네임 중복, 사용 불가능"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @PostMapping("/join/checkNicknameDub")
+    public ResponseEntity<Boolean> checkNicknameDuplication(@Valid @RequestBody MemberJoinRequestDto.CheckNicknameDuplicationDto dto){
+        log.info(dto.getNickname());
+
+        return memberService.checkNicknameDuplication(dto.getNickname());
     }
 
     @Operation(summary = "로그인", description = "로그인 API")

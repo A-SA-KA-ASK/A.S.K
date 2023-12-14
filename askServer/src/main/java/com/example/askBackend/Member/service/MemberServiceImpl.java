@@ -34,9 +34,10 @@ public class MemberServiceImpl implements MemberService {
     public ResponseEntity<String> join(@NotBlank String id, @NotBlank String password, @NotBlank String nickname) {
 
         // 중복 체크
-        memberRepository.findById(id).ifPresent(member -> {
-            throw new AppException(ErrorCode.USER_DUPLICATED, "중복 된 아이디");
-        });
+        Member findMember = memberRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_DUPLICATED, "중복 된 아이디"));
+
+        // 닉네임 중복 체크
+        if (findMember.getNickname().equals(nickname)) throw new AppException(ErrorCode.USER_DUPLICATED, "중복 된 닉네임");
 
         Member member = Member.builder()
                 .id(id)
@@ -66,5 +67,29 @@ public class MemberServiceImpl implements MemberService {
         String token = JwtTokenUtil.createToken(findMember.getId(), key, expireTimeMs);
 
         return ResponseEntity.ok().body(token);
+    }
+
+    @Override
+    public ResponseEntity<Boolean> checkIdDuplication(String id) {
+
+        // 중복 체크
+        memberRepository.findById(id)
+                .ifPresent(member -> {
+                    throw new AppException(ErrorCode.USER_DUPLICATED, "중복된 아이디");
+                });
+
+        return ResponseEntity.ok().body(Boolean.TRUE);
+    }
+
+    @Override
+    public ResponseEntity<Boolean> checkNicknameDuplication(String nickname) {
+
+        // 중복 체크
+        memberRepository.findByNickname(nickname)
+                .ifPresent(member -> {
+                    throw new AppException(ErrorCode.USER_NICKNAME_DUPLICATED, "중복된 닉네임");
+                });
+
+        return ResponseEntity.ok().body(Boolean.TRUE);
     }
 }
