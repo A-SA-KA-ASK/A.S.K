@@ -1,15 +1,17 @@
-
+import { useNavigate } from "react-router-dom";
 
 function Sidebar () {
+
+    const navigator = useNavigate();
 
     return(
         <div className=" w-1/6 h-96 float-left m-7 p-3">
             <div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
-                    로그인
+                    <button onClick={()=> navigator('/login')}>로그인</button>
                 </div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
-                    글쓰기
+                    <button onClick={()=> navigator('/write')}>글쓰기</button>
                 </div>
             </div>
 
@@ -19,10 +21,10 @@ function Sidebar () {
                         일상
                     </div>
                     <div className="py-1">
-                        txt 일상
+                        <button onClick={()=> navigator('/dailyT')}>txt 일상</button>
                     </div>
                     <div className="">
-                        이미지 일상 
+                        <button onClick={()=> navigator('/dailyImg')}>Img 일상</button>
                     </div>
                 </div>
                 <div>
@@ -30,10 +32,10 @@ function Sidebar () {
                         공부
                     </div>
                     <div className="py-1">
-                        txt 공부
+                        <button onClick={()=> navigator('/studyT')}>txt 공부</button>
                     </div>
                     <div className="">
-                        이미지 공부  
+                        <button onClick={()=> navigator('/studyImg')}>Img 공부</button>
                     </div>
                 </div>
             </div>
