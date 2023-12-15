@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
 
 
 function Content () {
 
     // tbody부분에 Section부분에서 받아온 내용을 map을 통하여 내용을 보여주려고 함.
 
+    const navigate = useNavigate();
+    
     return(
         <div className=" h-96 float-left w-4/6 m-10 p-3 ">
             <div className="mb-8">
@@ -16,7 +19,7 @@ function Content () {
                                 </th>
                                 <th></th>
                                 <th scope="col" class="pl-6 py-3 float-right">
-                                    + 더보기
+                                    <button onClick={()=> navigate('/dailyT')}>+ 더보기</button>
                                 </th>
                             </tr>
                         </thead>
@@ -53,7 +56,7 @@ function Content () {
                                     카테고리 공부
                                 </th>
                                 <th scope="col" class="pl-6 py-3 float-right">
-                                    + 더보기
+                                    <button onClick={()=> navigate('/studyT')}>+ 더보기</button>
                                 </th>
                             </tr>
                         </thead>
