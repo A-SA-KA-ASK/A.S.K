@@ -21,4 +21,14 @@ public class JwtTokenUtil {
                 .compact()
                 ;
     }
+
+    public static boolean isExpired(String token, String secretKey){
+        return Jwts.parserBuilder().setSigningKey(secretKey).build()
+                .parseClaimsJwt(token).getBody().getExpiration().before(new Date());
+    }
+
+    public static String getNickname(String token, String secretKey){
+        return Jwts.parserBuilder().setSigningKey(secretKey).build()
+                .parseClaimsJwt(token).getBody().get("nickname", String.class);
+    }
 }
