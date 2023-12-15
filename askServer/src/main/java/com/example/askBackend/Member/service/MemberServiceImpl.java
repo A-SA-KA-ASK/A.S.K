@@ -2,6 +2,7 @@ package com.example.askBackend.Member.service;
 
 import com.example.askBackend.Exception.AppException;
 import com.example.askBackend.Exception.ErrorCode;
+import com.example.askBackend.Member.dto.MemberFindIdPwRequestDto;
 import com.example.askBackend.Member.entity.Auth;
 import com.example.askBackend.Member.entity.Member;
 import com.example.askBackend.Member.repository.MemberRepository;
@@ -91,5 +92,36 @@ public class MemberServiceImpl implements MemberService {
                 });
 
         return ResponseEntity.ok().body(Boolean.TRUE);
+    }
+
+    @Override
+    public ResponseEntity<String> findMemberId(String nickname) {
+        // 닉네임 검색
+        Member findMember = memberRepository.findByNickname(nickname).orElseThrow(() -> new AppException(ErrorCode.NOT_FOUND_USER_NICKNAME, "닉네임을 찾을 수 없습니다."));
+
+        return ResponseEntity.ok().body(findMember.getId());
+    }
+
+    @Override
+    public ResponseEntity<MemberFindIdPwRequestDto.FindPwDto> findMemberPw(String id, String nickname) {
+        // id 검색
+        Member findMember = memberRepository.findByIdAndNickname(id, nickname).orElseThrow(() -> new AppException(ErrorCode.NOT_FOUND_USER_ID, "아이디를 찾을 수 없습니다."));
+
+        // 정보 전달
+        MemberFindIdPwRequestDto.FindPwDto findPwDto = new MemberFindIdPwRequestDto.FindPwDto(findMember.getId(), findMember.getNickname());
+
+        return ResponseEntity.ok().body(findPwDto);
+    }
+
+    @Transactional
+    @Override
+    public ResponseEntity<String> changeMemberPw(String id, String nickname, String password) {
+        // id 검색
+        Member findMember = memberRepository.findByIdAndNickname(id, nickname).orElseThrow(() -> new AppException(ErrorCode.NOT_FOUND_USER_ID, "아이디를 찾을 수 없습니다."));
+
+        findMember.changePw(passwordEncoder.encode(password));
+
+        memberRepository.save(findMember);
+        return ResponseEntity.ok().body("비밀번호 변경 완료");
     }
 }

@@ -1,5 +1,6 @@
 package com.example.askBackend.Member.controller;
 
+import com.example.askBackend.Member.dto.MemberFindIdPwRequestDto;
 import com.example.askBackend.Member.dto.MemberLoginRequestDto;
 import com.example.askBackend.Member.dto.MemberJoinRequestDto;
 import com.example.askBackend.Member.service.MemberService;
@@ -75,5 +76,47 @@ public class MemberController {
         log.info("loginRequestDto {}", memberLoginRequestDto.getId());
 
         return memberService.login(memberLoginRequestDto.getId(), memberLoginRequestDto.getPassword());
+    }
+
+    @Operation(summary = "아이디 찾기", description = "아이디 찾기 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @PostMapping("/find/id")
+    public ResponseEntity<String> findMemberId(@Valid @RequestBody MemberFindIdPwRequestDto.FindIdDto memberFindIdPwRequestDto){
+        log.info("loginRequestDto {}", memberFindIdPwRequestDto.getNickname());
+
+        return memberService.findMemberId(memberFindIdPwRequestDto.getNickname());
+    }
+
+    @Operation(summary = "비밀번호 찾기", description = "비밀번호 찾기 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @PostMapping("/find/pw")
+    public ResponseEntity<MemberFindIdPwRequestDto.FindPwDto> findMemberPw(@Valid @RequestBody MemberFindIdPwRequestDto.FindPwDto memberFindIdPwRequestDto){
+        log.info("loginRequestDto: {}, {}", memberFindIdPwRequestDto.getId(), memberFindIdPwRequestDto.getNickname());
+
+        return memberService.findMemberPw(memberFindIdPwRequestDto.getId(), memberFindIdPwRequestDto.getNickname());
+    }
+
+    @Operation(summary = "비밀번호 변경", description = "비밀번호 찾기 API")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @PatchMapping("/find/pw")
+    public ResponseEntity<String> changeMemberPw(@Valid @RequestBody MemberFindIdPwRequestDto.ChangeMemberDto memberFindIdPwRequestDto){
+        log.info("loginRequestDto: {}, {}", memberFindIdPwRequestDto.getId(), memberFindIdPwRequestDto.getNickname());
+
+        return memberService.changeMemberPw(memberFindIdPwRequestDto.getId(), memberFindIdPwRequestDto.getNickname(), memberFindIdPwRequestDto.getPassword());
     }
 }

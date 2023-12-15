@@ -20,4 +20,8 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Auth auth;
+
+    public void changePw(String password){
+        this.password = password;
+    }
 }

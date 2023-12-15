@@ -11,6 +11,7 @@ public enum ErrorCode {
     USER_DUPLICATED(HttpStatus.CONFLICT, ""),
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, ""),
     USER_NICKNAME_DUPLICATED(HttpStatus.CONFLICT, ""),
+    NOT_FOUND_USER_NICKNAME(HttpStatus.CONFLICT, ""),
     ;
 
     private final HttpStatus httpStatus;
