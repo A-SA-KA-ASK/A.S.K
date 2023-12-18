@@ -35,10 +35,14 @@ public class MemberServiceImpl implements MemberService {
     public ResponseEntity<String> join(@NotBlank String id, @NotBlank String password, @NotBlank String nickname) {
 
         // 중복 체크
-        Member findMember = memberRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_DUPLICATED, "중복 된 아이디"));
+        memberRepository.findById(id).ifPresent(member -> {
+            throw new  AppException(ErrorCode.USER_DUPLICATED, "중복 된 아이디");
+        });
 
         // 닉네임 중복 체크
-        if (findMember.getNickname().equals(nickname)) throw new AppException(ErrorCode.USER_DUPLICATED, "중복 된 닉네임");
+        memberRepository.findByNickname(nickname).ifPresent(member -> {
+                    throw new AppException(ErrorCode.USER_NICKNAME_DUPLICATED, "중복 된 닉네임");
+        });
 
         Member member = Member.builder()
                 .id(id)
