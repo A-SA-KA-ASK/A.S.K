@@ -2,7 +2,6 @@ package com.example.askBackend.filter;
 
 import com.example.askBackend.Member.service.MemberService;
 import com.example.askBackend.Util.JwtTokenUtil;
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +16,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -53,9 +53,12 @@ public class JwtFilter extends OncePerRequestFilter { // 매번 체크
         String nickname = JwtTokenUtil.getNickname(token, secretkey);
         log.info("nickname: {}", nickname);
 
+        // 권한을 Token에서 추출
+        SimpleGrantedAuthority simpleGrantedAuthority = JwtTokenUtil.getAuthority(token, secretkey);
+
         // 권한 부여
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(nickname, null, List.of(new SimpleGrantedAuthority("USER")));
+                new UsernamePasswordAuthenticationToken(nickname, null, Collections.singleton(simpleGrantedAuthority));
 
         // Detail을 넣어준다
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -66,9 +66,10 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/**")).permitAll()
-                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/users/join")).permitAll()
-                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/users/login")).permitAll()
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/users/**")).permitAll()
+                                /*.requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/users/join")).permitAll()
+                                .requestMatchers(new MvcRequestMatcher(introspector, "/api/v1/users/login")).permitAll()*/
+                                .anyRequest().hasAuthority("USER")
                 )
                 .sessionManagement((sessionManagement) ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // JWT를 사용하기 때문
