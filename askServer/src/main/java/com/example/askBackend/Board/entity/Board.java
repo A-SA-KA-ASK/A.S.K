@@ -1,5 +1,6 @@
 package com.example.askBackend.Board.entity;
 
+import com.example.askBackend.Category.entity.Category;
 import com.example.askBackend.Member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,5 +26,19 @@ public class Board extends TimeStamped{
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member writer;
+
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
+
+    public static Board createBoard(Member writer, String title, String content, Category category){
+
+        return Board.builder()
+                .writer(writer)
+                .title(title)
+                .content(content)
+                .category(category)
+                .build();
+    }
 
 }

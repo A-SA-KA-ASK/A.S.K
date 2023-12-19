@@ -20,5 +20,9 @@ public class BoardSaveDto {
         @NotBlank(message = "CONTENT cannot be blank")
         @Schema(description = "content", example = "게시글 내용")
         private String content;
+
+        @NotBlank(message = "CATEGORY cannot be blank")
+        @Schema(description = "category", example = "작성한 카테고리 이름")
+        private String category;
     }
 }
