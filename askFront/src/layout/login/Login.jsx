@@ -43,7 +43,8 @@ function Login() {
                                     <label for="remember" class="text-gray-500 dark:text-gray-300">아이디 저장</label>
                                 </div>
                             </div>
-                            <button href="#" class="text-sm font-medium text-primary-600 hover:underline">비밀번호 찾기</button>
+                            <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotE')}>아이디 찾기</button>
+                            <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotP')}>비밀번호 찾기</button>
                         </div>
                         <button type="submit" class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">로그인</button>
                         <p class="text-sm font-light text-gray-500 "> 회원이 아니시라고요? 
