@@ -34,6 +34,11 @@ public class JwtTokenUtil {
                 .parseClaimsJws(token).getBody().get("nickname", String.class);
     }
 
+    public static String getId(String token, String secretkey){
+        return Jwts.parserBuilder().setSigningKey(secretkey).build()
+                .parseClaimsJws(token).getBody().get("id", String.class);
+    }
+
     public static SimpleGrantedAuthority getAuthority(String token, String secretkey) {
         String role = Jwts.parserBuilder().setSigningKey(secretkey).build()
                 .parseClaimsJws(token).getBody().get("role", String.class);
