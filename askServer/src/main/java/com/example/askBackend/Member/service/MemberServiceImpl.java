@@ -69,7 +69,7 @@ public class MemberServiceImpl implements MemberService {
             throw new AppException(ErrorCode.INVALID_PASSWORD, "로그인 실패");
         }
 
-        String token = JwtTokenUtil.createToken(findMember.getId(), key, expireTimeMs);
+        String token = JwtTokenUtil.createToken(findMember.getId(), findMember.getNickname(), findMember.getAuth().toString(), key, expireTimeMs);
 
         return ResponseEntity.ok().body(token);
     }
