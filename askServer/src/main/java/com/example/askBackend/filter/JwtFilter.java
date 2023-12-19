@@ -2,6 +2,7 @@ package com.example.askBackend.filter;
 
 import com.example.askBackend.Member.service.MemberService;
 import com.example.askBackend.Util.JwtTokenUtil;
+import com.example.askBackend.config.auth.PrincipalDetails;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -33,16 +35,16 @@ public class JwtFilter extends OncePerRequestFilter { // 매번 체크
         log.info("authorization : {}", authorization);
 
         // token이 없을 경우
-         if(authorization == null || !authorization.startsWith("Bearer ")){
-             log.error("Authorization 존재하지않음.");
-             filterChain.doFilter(request, response);
-             return;
-         }
+        if(authorization == null || !authorization.startsWith("Bearer ")){
+            log.error("Authorization 존재하지않음.");
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-         // token 가지고 오기
+        // token 가지고 오기
         String token  = authorization.split(" ")[1];
 
-         // token 만료 여부 체크
+        // token 만료 여부 체크
         if(JwtTokenUtil.isExpired(token, secretkey)){
             log.error("token 만료");
             filterChain.doFilter(request, response);
@@ -53,9 +55,17 @@ public class JwtFilter extends OncePerRequestFilter { // 매번 체크
         String nickname = JwtTokenUtil.getNickname(token, secretkey);
         log.info("nickname: {}", nickname);
 
+        // 권한을 Token에서 추출
+        SimpleGrantedAuthority simpleGrantedAuthority = JwtTokenUtil.getAuthority(token, secretkey);
+
+        // 아이디를 Token에서 추출
+        String id = JwtTokenUtil.getId(token, secretkey);
+
+        PrincipalDetails userDetails = new PrincipalDetails(id, nickname, null, Collections.singleton(simpleGrantedAuthority));
+
         // 권한 부여
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(nickname, null, List.of(new SimpleGrantedAuthority("USER")));
+                new UsernamePasswordAuthenticationToken(userDetails, null, Collections.singleton(simpleGrantedAuthority));
 
         // Detail을 넣어준다
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

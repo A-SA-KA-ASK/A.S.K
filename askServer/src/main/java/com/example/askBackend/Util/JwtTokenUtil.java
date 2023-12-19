@@ -3,15 +3,17 @@ package com.example.askBackend.Util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Date;
 
 public class JwtTokenUtil {
 
-    public static String createToken(String id, String key, long expireTimeMs){
+    public static String createToken(String id, String nickname, String auth, String key, long expireTimeMs){
         Claims clams = Jwts.claims();
         clams.put("id", id);
+        clams.put("nickname", nickname);
+        clams.put("role", auth);
 
         return Jwts.builder()
                 .setClaims(clams)
@@ -24,11 +26,23 @@ public class JwtTokenUtil {
 
     public static boolean isExpired(String token, String secretKey){
         return Jwts.parserBuilder().setSigningKey(secretKey).build()
-                .parseClaimsJwt(token).getBody().getExpiration().before(new Date());
+                .parseClaimsJws(token).getBody().getExpiration().before(new Date());
     }
 
     public static String getNickname(String token, String secretKey){
         return Jwts.parserBuilder().setSigningKey(secretKey).build()
-                .parseClaimsJwt(token).getBody().get("nickname", String.class);
+                .parseClaimsJws(token).getBody().get("nickname", String.class);
+    }
+
+    public static String getId(String token, String secretkey){
+        return Jwts.parserBuilder().setSigningKey(secretkey).build()
+                .parseClaimsJws(token).getBody().get("id", String.class);
+    }
+
+    public static SimpleGrantedAuthority getAuthority(String token, String secretkey) {
+        String role = Jwts.parserBuilder().setSigningKey(secretkey).build()
+                .parseClaimsJws(token).getBody().get("role", String.class);
+
+        return new SimpleGrantedAuthority(role);
     }
 }
