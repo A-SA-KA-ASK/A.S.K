@@ -48,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
                 .id(id)
                 .password(passwordEncoder.encode(password))
                 .nickname(nickname)
-                .auth(Auth.DEFAULT)
+                .auth(Auth.USER)
                 .build();
 
         // 저장

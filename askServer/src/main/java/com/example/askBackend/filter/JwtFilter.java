@@ -2,6 +2,7 @@ package com.example.askBackend.filter;
 
 import com.example.askBackend.Member.service.MemberService;
 import com.example.askBackend.Util.JwtTokenUtil;
+
 import com.example.askBackend.config.auth.PrincipalDetails;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -66,6 +67,7 @@ public class JwtFilter extends OncePerRequestFilter { // 매번 체크
         // 권한 부여
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDetails, null, Collections.singleton(simpleGrantedAuthority));
+
 
         // Detail을 넣어준다
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
