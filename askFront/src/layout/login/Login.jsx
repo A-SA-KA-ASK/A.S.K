@@ -1,11 +1,20 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
 
     // 로그인 부분 입니다. 
+    
+    // 로그인 버튼 클릭시 일치 하지 않는다라는 문구 출력
+    // 로그인 이메일 형식 아니면 로그인 버튼 막기
 
     const navigate = useNavigate();
 
+    const [email, setEmail] = useState();
+    const [pw, setPw] = useState();
+    const [err, setErr] = useState(false); // 에러 문구 나타내기
+    const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+ 
     return(
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-slate-100">
             <div href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 ">
