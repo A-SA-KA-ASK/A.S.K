@@ -14,7 +14,8 @@ public class Board extends TimeStamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long BOARD_ID;
+    @Column(name = "BOARD_ID")
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -39,6 +40,11 @@ public class Board extends TimeStamped{
                 .content(content)
                 .category(category)
                 .build();
+    }
+
+    public void changeBoard(String title, String content){
+        this.title = title;
+        this.content = content;
     }
 
 }
