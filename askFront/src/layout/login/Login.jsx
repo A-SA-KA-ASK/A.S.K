@@ -10,10 +10,12 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState();
-    const [pw, setPw] = useState();
-    const [err, setErr] = useState(false); // 에러 문구 나타내기
-    const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    const [ep, setEP] = useState({ // 사용자 아이디, 비밀번호 axios로 가져오기 위해 사용.
+
+    });
+
+    const [emailErr, setEmailErr] = useState(); // 이메일 에러문구 나타내기
+    const [pwErr, setPwErr] = useState(); // 비밀번호 에러문구 나타내기
  
     return(
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-slate-100">

@@ -30,7 +30,7 @@ function App() {
         <Route path="/studyImg" element={<StudyImg />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/write" element={<Write />} />
+        <Route path="/write" element={<Write />}/>
         <Route path="/forgotE" element={<Email />} />
         <Route path="/forgotP" element={<Password />} />
         <Route path="/forgotPS" element={<PasswordSet />} />
