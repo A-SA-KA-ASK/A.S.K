@@ -1,4 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 function Password () {
+
+    // 조회를 해서 이메일과 닉네임이 일치한다면 비밀번호 재설정을 할 수 있게 이동 시켜 줌.
+
+    const navigate = useNavigate();
+    
     return(
         <div>
             <h1>비밀번호 찾기</h1>

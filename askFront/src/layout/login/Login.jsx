@@ -10,10 +10,12 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState();
-    const [pw, setPw] = useState();
-    const [err, setErr] = useState(false); // 에러 문구 나타내기
-    const emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    const [ep, setEP] = useState({ // 사용자 아이디, 비밀번호 axios로 가져오기 위해 사용.
+
+    });
+
+    const [emailErr, setEmailErr] = useState(); // 이메일 에러문구 나타내기
+    const [pwErr, setPwErr] = useState(); // 비밀번호 에러문구 나타내기
  
     return(
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-slate-100">
@@ -43,7 +45,8 @@ function Login() {
                                     <label for="remember" class="text-gray-500 dark:text-gray-300">아이디 저장</label>
                                 </div>
                             </div>
-                            <button href="#" class="text-sm font-medium text-primary-600 hover:underline">비밀번호 찾기</button>
+                            <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotE')}>아이디 찾기</button>
+                            <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotP')}>비밀번호 찾기</button>
                         </div>
                         <button type="submit" class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">로그인</button>
                         <p class="text-sm font-light text-gray-500 "> 회원이 아니시라고요? 
