@@ -8,33 +8,51 @@ function SignUp() {
     const navigate = useNavigate();
     const [agree, setAgree] = useState(false); // 약관동의 내용
     const [emailErr, setEmailErr] = useState(""); // 이메일 유효성 체크
-    const [passWordErr, setPassWordErr] = useState(""); // 비밀번호 유효성 체크
-    const [passWordCheck, setPassWordCheck] = useState(""); // 비밀번호 틀대로 했는지 체크 
+    const [passWordCheck, setPassWordCheck] = useState(""); // 비밀번호 유효성 체크
+    const [passWordErr, setPassWordErr] = useState(""); // 비밀번호 틀대로 했는지 체크 
     const [nickName, setNickName] = useState(""); // 닉네임 유효성 체크
-
-    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/; 
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    const nicknameRegex = /^[가-힣a-zA-Z]+$/;
 
     const agreeCheck = (e) => { // 약관 동의
         setAgree(e.target.agree);
     }
-
+    
     const onSubmit = (e) => { // form 전송
         e.preventDefault();
+        
+        // if(!emailRegex.test()) setEmailErr('올바른 이메일 형식이 아닙니다.');  // 이런 틀을 사용하려고 함.
+        // else setEmailErr('');
+        
+        // const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/; 
+        // if (!emailRegex.test()) { // test부분에 axios로 받은 데이터 내용을 넣어서 확인을 함.
+        //     setEmailErr('올바른 이메일 형식이 아닙니다.');
+        // } else {
+        //     setEmailErr('');
+        // }
+
+        // const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+        // if (!passwordRegex.test()) { // test부분에 axios로 받은 데이터 내용을 넣어서 확인을 함.
+        //     setPassWordCheck('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요.');
+        // } else {
+        //     setPassWordCheck('');
+        // }
+
+        // if ( !== ) { // axios로 받은 데이터 내용을 넣어서 확인을 함.
+        //     setPassWordErr('비밀번호가 일치하지 않습니다.');
+        // } else {
+        //     setPassWordErr('');
+        // } 
+
+        // const nicknameRegex = /^[가-힣a-zA-Z]+$/;
+        // if (!nicknameRegex.test()) { // test부분에 axios로 받은 데이터 내용을 넣어서 확인을 함.
+        //     setNameError('올바른 이름을 입력해주세요.');
+        // } else {
+        //     setNameError('');
+        // }
+      
+        if (!agree) alert('회원가입 약관에 동의해주세요.'); // 회원가입 동의 체크
+
     }
 
-    const passwordCheck = (passWordErr) => { // 이틀을 axios로 데이터를 받아와서 아래 코드처럼 사용 할 예정
-        if(passWordErr.match(passwordRegex)===null) { 
-          console.log('비밀번호 형식을 확인해주세요');
-          return;
-        }else{ // 맞을 경우 출력
-          console.log('비밀번호 형식이 맞아요');
-        }
-      }
-    
-    // if(!emailRegex.test()) setEmailErr('올바른 이메일 형식이 아닙니다.');  // 이런 틀을 사용하려고 함.
-    // else setEmailErr('');
 
     return(
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-slate-100">
