@@ -7,6 +7,9 @@ import StudyImg from "./component/studycp/StudyImg";
 import Login from "./layout/login/Login";
 import Write from "./layout/write/Write";
 import SignUp from "./layout/sign up/SignUp";
+import Email from "./layout/forgot/Email";
+import Password from "./layout/forgot/Password";
+import PasswordSet from "./layout/forgot/PasswordSet";
 
 function App() {
 
@@ -27,7 +30,10 @@ function App() {
         <Route path="/studyImg" element={<StudyImg />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/write" element={<Write />}/>
+        <Route path="/write" element={<Write />} />
+        <Route path="/forgotE" element={<Email />} />
+        <Route path="/forgotP" element={<Password />} />
+        <Route path="/forgotPS" element={<PasswordSet />} />
       </Routes>
     </>
   );
