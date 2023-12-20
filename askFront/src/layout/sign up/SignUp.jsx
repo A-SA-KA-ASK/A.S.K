@@ -33,7 +33,7 @@ function SignUp() {
         }
       }
     
-    // if(!emailRegex.test()) setEmailErr('올바른 이메일 형식이 아닙니다.'); 이런 틀을 사용하려고 함.
+    // if(!emailRegex.test()) setEmailErr('올바른 이메일 형식이 아닙니다.');  // 이런 틀을 사용하려고 함.
     // else setEmailErr('');
 
     return(
