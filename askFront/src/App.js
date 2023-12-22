@@ -10,6 +10,8 @@ import SignUp from "./layout/sign up/SignUp";
 import Email from "./layout/forgot/Email";
 import Password from "./layout/forgot/Password";
 import PasswordSet from "./layout/forgot/PasswordSet";
+import Sidebar from "./layout/Sidebar";
+import TestMain from "./Test";
 
 function App() {
 
@@ -20,9 +22,12 @@ function App() {
   // 수정 초기 틀인 헤더, 사이드바, 푸터는 고정으로 했지만 로그인 화면은 새로운 페이지로 나타내기 위해
   // 컴포넌트 마다 사이드 헤더 푸터를 넣어서 고정 틀을 생성해 줌.
 
+  // 로그인 전에는 글을 확인 할 수 없게 설정을 하기로 했으므로 
+  // react-router-dom를 사용한 PrivateRouter를 이용하기로 했다.
+
   return (
     <>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<MainSection />} />
         <Route path="/dailyT" element={<DailyT/>} />
         <Route path="/dailyImg" element={<DailyImg />} />
@@ -34,7 +39,8 @@ function App() {
         <Route path="/forgotE" element={<Email />} />
         <Route path="/forgotP" element={<Password />} />
         <Route path="/forgotPS" element={<PasswordSet />} />
-      </Routes>
+      </Routes> */}
+      <TestMain />
     </>
   );
 }
