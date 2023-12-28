@@ -11,7 +11,7 @@ import Email from "./layout/forgot/Email";
 import Password from "./layout/forgot/Password";
 import PasswordSet from "./layout/forgot/PasswordSet";
 import Sidebar from "./layout/Sidebar";
-import TestMain from "./Test";
+import TestRouter from "./TestLogin";
 
 function App() {
 
@@ -40,7 +40,7 @@ function App() {
         <Route path="/forgotP" element={<Password />} />
         <Route path="/forgotPS" element={<PasswordSet />} />
       </Routes> */}
-      <TestMain />
+      <TestRouter />
     </>
   );
 }
