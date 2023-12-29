@@ -23,14 +23,13 @@ function TestBfLogin({setIsLogin}) {
 
         const onSubmit = (e) => {
             e.preventDefault();
+            setIsLogin(true);
             axios.get("https://8141bf93-5d2c-4c21-8e3e-247f0a3aed60.mock.pstmn.io", {
                 email,
                 password
             }).then((res) => {
-                setIsLogin(true);
                 setUser(res.data);
                 alert("로그인이 되었습니다.")
-                document.location.href = '/main'
             }).catch((err) => {
                 console.log(err);
             })
@@ -67,15 +66,13 @@ function TestRouter() {
     
     const [isLogin, setIsLogin] = useState(false);
 
-
     return(
         <div>
             안녕하세요 메인 페이지입니다.
-            {/* <h1>버튼 클릭시 화면 조정</h1>
-            <button onClick={()=> setIsLogin(!isLogin)}>버튼</button>
-            {
-                isLogin ? <TestLogin /> : <TestBfLogin />
-            } */}
+            {/* {
+                isLogin ? <TestLogin /> : <TestBfLogin setIsLogin={setIsLogin} />
+            }
+             */}
             <Routes>
                 {
                     isLogin ? (
