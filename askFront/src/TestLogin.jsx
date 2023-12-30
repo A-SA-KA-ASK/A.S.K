@@ -30,6 +30,7 @@ function TestBfLogin({setIsLogin}) {
             }).then((res) => {
                 setUser(res.data);
                 alert("로그인이 되었습니다.")
+                document.location.href = '/main'
             }).catch((err) => {
                 console.log(err);
             })
@@ -69,11 +70,11 @@ function TestRouter() {
     return(
         <div>
             안녕하세요 메인 페이지입니다.
-            {/* {
+            {
                 isLogin ? <TestLogin /> : <TestBfLogin setIsLogin={setIsLogin} />
             }
-             */}
-            <Routes>
+            
+            {/* <Routes>
                 {
                     isLogin ? (
                         <>
@@ -84,10 +85,10 @@ function TestRouter() {
                         <Route path="/" element={<TestBfLogin setIsLogin={setIsLogin} />} />
                     </>
                     )
-                }
+                } */}
                 {/* <Route path="/" element={<TestBfLogin setIsLogin={setIsLogin} />} />
                 <Route path="/main" element={<TestLogin />} /> */}
-            </Routes>
+            {/* </Routes> */}
         </div>
     )
 }
