@@ -1,3 +1,4 @@
+// 로그인 전 내용 불러오기.
 import { Route, Routes } from "react-router-dom";
 import MainSection from "./component/MainSection";
 import DailyT from "./component/dlcp/DailyT";
@@ -10,8 +11,13 @@ import SignUp from "./layout/sign up/SignUp";
 import Email from "./layout/forgot/Email";
 import Password from "./layout/forgot/Password";
 import PasswordSet from "./layout/forgot/PasswordSet";
-import Sidebar from "./layout/Sidebar";
-import TestRouter from "./TestLogin";
+import LoginMainSection from "./loginComponent/LoginMainSection";
+import TestMain from "./Test";
+
+// import TestRouter from "./TestLogin";
+
+// 로그인 후 내용 불러오기
+
 
 function App() {
 
@@ -27,8 +33,9 @@ function App() {
 
   return (
     <>
-      {/* <Routes>
-        <Route path="/" element={<MainSection />} />
+      {/* <Routes> */}
+        {/* 로그인 전 화면 */}
+        {/* <Route path="/" element={<MainSection />} />
         <Route path="/dailyT" element={<DailyT/>} />
         <Route path="/dailyImg" element={<DailyImg />} />
         <Route path="/studyT" element={<StudyT />} />
@@ -38,9 +45,12 @@ function App() {
         <Route path="/write" element={<Write />}/>
         <Route path="/forgotE" element={<Email />} />
         <Route path="/forgotP" element={<Password />} />
-        <Route path="/forgotPS" element={<PasswordSet />} />
-      </Routes> */}
-      <TestRouter />
+        <Route path="/forgotPS" element={<PasswordSet />} /> */}
+        {/* 로그인 후 화면 */}
+        {/* <Route path="/loginMain" element={<LoginMainSection />} /> */}
+      {/* </Routes> */}
+      {/* <TestRouter /> */}
+      <TestMain />
     </>
   );
 }
