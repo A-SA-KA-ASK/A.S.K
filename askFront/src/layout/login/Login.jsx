@@ -10,7 +10,7 @@ function Login() {
     // 로그인 버튼 클릭시 일치 하지 않는다라는 문구 출력
     // 로그인 이메일 형식 아니면 로그인 버튼 막기
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [user, setUser] = useState([]); // data를 받아와서 보여줌.
     const [err, setErr] = useState(""); // 에러메세지 나타나게 함.
@@ -35,13 +35,23 @@ function Login() {
             email,
             password
         }).then((res) => {
-            setUser(res.data);
+            setUser(res.data[0]);
             alert("로그인이 되었습니다.")
-            document.location.href = '/loginMain'
+            // document.location.href = '/loginMain' // 이렇게하면 props를 줄수가없음..
+            navigate("/loginMain", {state:{user:user}}) // {state: {키 : 값}} 으로 들어감
         }).catch((err) => {
             setErr(err.message);
         })
     }
+
+    console.log(user);
+    console.log(setUser);
+
+    // 일반적인 페이지 이동
+    const navigate = useNavigate();
+
+    // <button onClick={()=> navigate('/')}>이동</button>
+
 
     const [emailErr, setEmailErr] = useState(); // 이메일 에러문구 나타내기
     const [pwErr, setPwErr] = useState(); // 비밀번호 에러문구 나타내기

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-function LoginSidebar () {
+function LoginSidebar ({propsUser}) {
 
     const navigator = useNavigate();
 
@@ -8,7 +8,15 @@ function LoginSidebar () {
         <div className=" w-1/6 h-96 float-left m-7 p-3">
             <div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
-                    안녕하세요.
+                    {
+                      propsUser && propsUser.map((a) => {
+                            return(
+                                <div>
+                                    {a.name}안녕하세요.
+                                </div>
+                            );
+                        })
+                    }
                 </div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
                     <button onClick={()=> navigator('/write')}>글쓰기</button>
