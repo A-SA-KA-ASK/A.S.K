@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import LoginMainSection from "../../loginComponent/LoginMainSection";
 
 function Login() {
 
@@ -15,12 +14,13 @@ function Login() {
     const [user, setUser] = useState([]); // data를 받아와서 보여줌.
     const [err, setErr] = useState(""); // 에러메세지 나타나게 함.
     const [ep, setEP] = useState({ // 사용자 아이디, 비밀번호 axios로 가져오기 위해 사용.
+        nickname: "",
         email: "",
         password: ""
     });
 
 
-    const {email, password} = ep; // 비구조화 할당을 이용함.
+    const {nickname, email, password} = ep; // 비구조화 할당을 이용함.
 
     const onChange = (e) => {
         const {name, value} = e.target;
@@ -31,27 +31,29 @@ function Login() {
     }
 
     const onSubmit = (e) => {
-        axios.get("https://8141bf93-5d2c-4c21-8e3e-247f0a3aed60.mock.pstmn.io", {
+        axios.get("/dummy/testLogin.json", {
+            nickname,
             email,
             password
         }).then((res) => {
-            setUser(res.data[0]);
-            alert("로그인이 되었습니다.")
+            setUser(res.data.user);
+            console.log(res.data.user);
+            alert("로그인이 되었습니다.");
             // document.location.href = '/loginMain' // 이렇게하면 props를 줄수가없음..
-            navigate("/loginMain", {state:{user:user}}) // {state: {키 : 값}} 으로 들어감
+            // navigate("/loginMain", {state:{user:user}}) // {state: {키 : 값}} 으로 들어감
         }).catch((err) => {
             setErr(err.message);
         })
     }
 
-    console.log(user);
-    console.log(setUser);
+    useEffect(() => {
+        onSubmit();
+    }, []);
 
     // 일반적인 페이지 이동
     const navigate = useNavigate();
 
     // <button onClick={()=> navigate('/')}>이동</button>
-
 
     const [emailErr, setEmailErr] = useState(); // 이메일 에러문구 나타내기
     const [pwErr, setPwErr] = useState(); // 비밀번호 에러문구 나타내기
@@ -88,9 +90,9 @@ function Login() {
                             <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotE')}>아이디 찾기</button>
                             <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotP')}>비밀번호 찾기</button>
                         </div>
-                        <button type="submit" onClick={onSubmit} class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">
-                            로그인
-                        </button>
+                            <button type="submit" onClick={()=> navigate("/loginMain", {state:{user:user}})} class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">
+                                로그인
+                            </button>
                         <p class="text-sm font-light text-gray-500 "> 회원이 아니시라고요? 
                             <button onClick={()=> navigate('/signup')} class="font-medium text-primary-600 hover:underline hover:text-orange-700 ml-2">회원가입하기</button>
                         </p>
