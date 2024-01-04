@@ -6,43 +6,11 @@ function LoginSidebar ({users}) {
 
     const navigator = useNavigate();
 
-    const [test, setTest] = useState([]);
-
-    const onSubmit = () => {
-        axios.get("/dummy/testLogin.json")
-        .then((res) => {
-            setTest(res.data.user);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    }
-    // onSubmit();
-
     return(
         <div className=" w-1/6 h-96 float-left m-7 p-3">
             <div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
                     안녕하세요. {users[0].nickname}님 
-                    
-                    {
-                        test.map((a) => (
-                            <div>
-                                <p>{a.nickname}</p>
-                                <p>{a.email}</p>
-                                <p>{a.password}</p>
-                            </div>
-                        ))
-                    }
-                    {/* {
-                      propsUser.map((a) => {
-                            return(
-                                <div>
-                                    {a.name}안녕하세요.
-                                </div>
-                            );
-                        })
-                    } */}
                 </div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
                     <button onClick={()=> navigator('/write')}>글쓰기</button>

@@ -19,7 +19,6 @@ function Login() {
         password: ""
     });
 
-
     const {nickname, email, password} = ep; // 비구조화 할당을 이용함.
 
     const onChange = (e) => {
@@ -30,17 +29,13 @@ function Login() {
         })
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = () => {
         axios.get("/dummy/testLogin.json", {
             nickname,
             email,
             password
         }).then((res) => {
             setUser(res.data.user);
-            console.log(res.data.user);
-            alert("로그인이 되었습니다.");
-            // document.location.href = '/loginMain' // 이렇게하면 props를 줄수가없음..
-            // navigate("/loginMain", {state:{user:user}}) // {state: {키 : 값}} 으로 들어감
         }).catch((err) => {
             setErr(err.message);
         })
@@ -90,7 +85,7 @@ function Login() {
                             <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotE')}>아이디 찾기</button>
                             <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotP')}>비밀번호 찾기</button>
                         </div>
-                            <button type="submit" onClick={()=> navigate("/loginMain", {state:{user:user}})} class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">
+                            <button type="submit" onClick={() => navigate('/loginmain', {state:{user:user}})} class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">
                                 로그인
                             </button>
                         <p class="text-sm font-light text-gray-500 "> 회원이 아니시라고요? 

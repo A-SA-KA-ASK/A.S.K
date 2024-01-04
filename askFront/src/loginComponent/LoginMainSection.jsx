@@ -12,17 +12,12 @@ function LoginMainSection() {
     // App부분에서 Login인 부분 따로 설정해놈.
 
     const location = useLocation();
-    console.log(location);
-    console.log(location.state);
-
     const users = location.state.user;
-    console.log(users);
     
 
     return(
         <div>
             <Header />
-            {/* {users[0].nickname} */}
             <div className="h-screen w-11/12 m-auto mt-6 pt-6">
                 <LoginSidebar users={users} />
                 <LoginContent />
