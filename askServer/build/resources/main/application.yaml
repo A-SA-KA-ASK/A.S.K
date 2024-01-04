@@ -3,20 +3,21 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/ask
-    username: sa
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://13.209.104.132:3306/ask_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    username: ask
+    password: ask_0114
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-
 logging:
   level:
     org.hibernate.sql: debug
+    org.springframework.security: debug
+
+jwt:
+  token:
+    secret: "secretKey"

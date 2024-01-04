@@ -6,7 +6,9 @@ import com.example.askBackend.Member.dto.MemberFindIdPwRequestDto;
 import com.example.askBackend.Member.dto.MemberJoinRequestDto;
 import com.example.askBackend.Member.dto.MemberLoginRequestDto;
 import com.example.askBackend.Member.service.MemberService;
+import com.example.askBackend.test.TestEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -28,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MemberController.class)
+@Transactional
 class MemberControllerTest {
 
     @Autowired
