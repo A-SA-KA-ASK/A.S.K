@@ -1,5 +1,6 @@
 package com.example.askBackend.Board.entity;
 
+import com.example.askBackend.Category.entity.Category;
 import com.example.askBackend.Member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +14,8 @@ public class Board extends TimeStamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long BOARD_ID;
+    @Column(name = "BOARD_ID")
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -25,5 +27,24 @@ public class Board extends TimeStamped{
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member writer;
+
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
+
+    public static Board createBoard(Member writer, String title, String content, Category category){
+
+        return Board.builder()
+                .writer(writer)
+                .title(title)
+                .content(content)
+                .category(category)
+                .build();
+    }
+
+    public void changeBoard(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
 
 }

@@ -12,6 +12,9 @@ public enum ErrorCode {
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, ""),
     USER_NICKNAME_DUPLICATED(HttpStatus.CONFLICT, ""),
     NOT_FOUND_USER_NICKNAME(HttpStatus.CONFLICT, ""),
+    NOT_FOUND_CATEGORY(HttpStatus.NOT_FOUND, ""),
+    UNAUTHORIZED_ACCESS(HttpStatus.FORBIDDEN, ""),
+    NOT_FOUND_BOARD(HttpStatus.NOT_FOUND, ""),
     ;
 
     private final HttpStatus httpStatus;
