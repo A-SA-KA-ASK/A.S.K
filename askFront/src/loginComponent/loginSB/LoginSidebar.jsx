@@ -1,6 +1,8 @@
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function LoginSidebar ({propsUser}) {
+function LoginSidebar ({users}) {
 
     const navigator = useNavigate();
 
@@ -8,15 +10,7 @@ function LoginSidebar ({propsUser}) {
         <div className=" w-1/6 h-96 float-left m-7 p-3">
             <div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
-                    {
-                      propsUser && propsUser.map((a) => {
-                            return(
-                                <div>
-                                    {a.name}안녕하세요.
-                                </div>
-                            );
-                        })
-                    }
+                    안녕하세요. {users[0].nickname}님 
                 </div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
                     <button onClick={()=> navigator('/write')}>글쓰기</button>

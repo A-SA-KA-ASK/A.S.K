@@ -2,7 +2,13 @@ import { useNavigate } from "react-router-dom";
 
 function Sidebar () {
 
+    // 로그인 전 보이는 사이드 바
     const navigator = useNavigate();
+
+    const onClick = () => {
+        alert("권한이 없습니다 로그인을 해주세요.");
+        navigator('/login');
+    }
 
     return(
         <div className=" w-1/6 h-96 float-left m-7 p-3">
@@ -11,7 +17,7 @@ function Sidebar () {
                     <button onClick={()=> navigator('/login')}>로그인</button>
                 </div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
-                    <button onClick={()=> navigator('/write')}>글쓰기</button>
+                    <button onClick={onClick}>글쓰기</button>
                 </div>
             </div>
 
@@ -21,10 +27,10 @@ function Sidebar () {
                         일상
                     </div>
                     <div className="py-1">
-                        <button onClick={()=> navigator('/dailyT')}>txt 일상</button>
+                        <button onClick={onClick}>txt 일상</button>
                     </div>
                     <div className="">
-                        <button onClick={()=> navigator('/dailyImg')}>Img 일상</button>
+                        <button onClick={onClick}>Img 일상</button>
                     </div>
                 </div>
                 <div>
@@ -32,10 +38,10 @@ function Sidebar () {
                         공부
                     </div>
                     <div className="py-1">
-                        <button onClick={()=> navigator('/studyT')}>txt 공부</button>
+                        <button onClick={onClick}>txt 공부</button>
                     </div>
                     <div className="">
-                        <button onClick={()=> navigator('/studyImg')}>Img 공부</button>
+                        <button onClick={onClick}>Img 공부</button>
                     </div>
                 </div>
             </div>

@@ -33,9 +33,9 @@ function App() {
 
   return (
     <>
-      {/* <Routes> */}
+      <Routes>
         {/* 로그인 전 화면 */}
-        {/* <Route path="/" element={<MainSection />} />
+        <Route path="/" element={<MainSection />} />
         <Route path="/dailyT" element={<DailyT/>} />
         <Route path="/dailyImg" element={<DailyImg />} />
         <Route path="/studyT" element={<StudyT />} />
@@ -45,12 +45,12 @@ function App() {
         <Route path="/write" element={<Write />}/>
         <Route path="/forgotE" element={<Email />} />
         <Route path="/forgotP" element={<Password />} />
-        <Route path="/forgotPS" element={<PasswordSet />} /> */}
+        <Route path="/forgotPS" element={<PasswordSet />} />
         {/* 로그인 후 화면 */}
-        {/* <Route path="/loginMain" element={<LoginMainSection />} /> */}
-      {/* </Routes> */}
+        <Route path="/loginMain" element={<LoginMainSection />} />
+      </Routes>
       {/* <TestRouter /> */}
-      <TestMain />
+      {/* <TestMain /> */}
     </>
   );
 }
