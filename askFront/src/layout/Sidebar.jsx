@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 function Sidebar () {
 
+    // 로그인 전 보이는 사이드 바
     const navigator = useNavigate();
 
     const onClick = () => {
