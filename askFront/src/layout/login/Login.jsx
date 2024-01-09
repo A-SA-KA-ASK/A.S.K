@@ -15,11 +15,11 @@ function Login() {
     const [err, setErr] = useState(""); // 에러메세지 나타나게 함.
     const [ep, setEP] = useState({ // 사용자 아이디, 비밀번호 axios로 가져오기 위해 사용.
         nickname: "",
-        email: "",
+        id: "",
         password: ""
     });
 
-    const {nickname, email, password} = ep; // 비구조화 할당을 이용함.
+    const {nickname, id, password} = ep; // 비구조화 할당을 이용함.
 
     const onChange = (e) => {
         const {name, value} = e.target;
@@ -29,13 +29,14 @@ function Login() {
         })
     }
 
+    // 서버에서 JWT토큰을 보내고 있어서 cookie를 사용하여 받아오려고함.
     const onSubmit = () => {
-        axios.get("/dummy/testLogin.json", {
+        axios.post("http://13.124.168.202:7777/api/v1/users/login", {
             nickname,
-            email,
+            id,
             password
         }).then((res) => {
-            setUser(res.data.user);
+            setUser(res.data);
         }).catch((err) => {
             setErr(err.message);
         })
@@ -64,8 +65,8 @@ function Login() {
                         로그인
                     </h1>
                         <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">이메일</label>
-                            <input type="email" name="email" id="email" onChange={onChange} value={email} class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="name@company.com" required="" />
+                            <label for="id" class="block mb-2 text-sm font-medium text-gray-900 ">이메일</label>
+                            <input type="id" name="id" id="id" onChange={onChange} value={id} class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="name@company.com" required="" />
                         </div>
                         {err}
                         <div>
