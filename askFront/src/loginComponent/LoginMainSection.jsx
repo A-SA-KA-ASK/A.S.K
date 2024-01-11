@@ -14,6 +14,7 @@ function LoginMainSection() {
     const location = useLocation();
     const users = location.state.user;
     
+    console.log(location.state);
 
     return(
         <div>
