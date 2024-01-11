@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { getCookie } from './Cookie';
 
 export default axios.create({
     headers: {
-        accessToken: `await ${getCookie('accessToken')}`,
-    },
+        "Content-Type": "application/json",
+        Authorization: `Bearer <accesstoken>`,
+      }, 
 });
