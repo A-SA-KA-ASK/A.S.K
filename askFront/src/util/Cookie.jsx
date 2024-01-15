@@ -4,6 +4,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
+import base64 from 'base-64';
 
 // // Cookie파일에 set,get,remove 함수를 모아둠.
 
@@ -25,16 +26,16 @@ export const removeCookie = (name, option) => { // 쿠키 삭제하는 함수
 
 function Cookie () {
 
-  // // 쿠키 테스트 
+  // 쿠키 테스트 
   // const checkCookie = () => {
   //   // 방법 1
-  //   const expires = new Date()
-  //   setCookie('testCookie', true, {expires}) // set(name, value, { ...option }); 이 부분을 작성한 내용
+  //   // const expires = new Date()
+  //   // setCookie('testCookie', true, {expires}) // set(name, value, { ...option }); 이 부분을 작성한 내용
 
   //   // 방법 2
   //   const time = 3600; //1시간
   //   const expires1 = new Date(Date.now() + time * 1000);
-  //   setCookie('testCookie', true, {expires})
+  //   setCookie('testCookie', true, {expires1})
   //   setTimeout(() => {
   //     // 시간을 걸어서 사용이 가능하다.
   //   })
@@ -50,10 +51,11 @@ function Cookie () {
 
   const [user, setUser] = useState({ // 이부분서 id와 pw부분을 받음
     id: "",
-    password: "" 
+    password: "",
+    nickname: ""
   })
 
-  const {id, password} = user;
+  const {nickname, id, password} = user;
 
   const onChange = async (e) => { // 입력받는 부분
     const { name, value } = e.target
@@ -68,6 +70,7 @@ function Cookie () {
     const config = await axios({
       id,
       password,
+      nickname,
       method: 'post',
       url: 'http://13.124.168.202:7777/api/v1/users/login',
       data: user, // useState부분에서 id값과 password값을 user로 받아옴
@@ -80,6 +83,16 @@ function Cookie () {
   const clickLogout = async () => {
     removeCookie('accessToken')
   }
+
+  const testGetCK = getCookie('accessToken'); // jwt를 가져옴
+  // console.log(testGetCK); 
+
+  let payload = testGetCK.substring(testGetCK.indexOf('.')+1,testGetCK.lastIndexOf('.'));  
+  let dec = base64.decode(payload);
+  console.log(dec);
+  
+  console.log(id);
+  console.log(nickname);
 
 
   return(
@@ -101,6 +114,17 @@ function Cookie () {
       />
       <button onClick={clickLogin}>LOGIN</button>
       <button onClick={clickLogout}>LOGOUT</button>
+      <div>
+        로그인 버튼을 눌러서 나온 내용 id : {id}, nickname: {nickname}
+      </div>
+    </div>
+  );
+}
+
+function LoginCheck () {
+  return(
+    <div>
+      로그인 되었습니다.
     </div>
   );
 }
