@@ -77,6 +77,7 @@ function Cookie () {
     })
     const { data } = config; // 총 내용을 data로 받아서 연결을 시킴.
     setCookie('accessToken', data);
+    // console.log(config);
   }
 
   // 회원가입
@@ -85,16 +86,20 @@ function Cookie () {
   }
 
   const testGetCK = getCookie('accessToken'); // jwt를 가져옴
-  // console.log(testGetCK); 
+  // // console.log(testGetCK); 
 
   let payload = testGetCK.substring(testGetCK.indexOf('.')+1,testGetCK.lastIndexOf('.'));  
-  let dec = base64.decode(payload);
-  console.log(dec);
+  let dec = JSON.parse(base64.decode(payload)); 
+  console.log(dec.id);
+  console.log(dec.nickname);
+
+  // let dec = base64.decode(payload);
   
-  console.log(id);
-  console.log(nickname);
-
-
+  // let token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLrsJXshozrp50iLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiZW1haWwiOiJkZW5pc3QyM0BuYXZlci5jb20iLCJpZCI6MywiaWF0IjoxNjYzNDc0NzE1LCJleHAiOjE2NjM0NzY1MTV9.N4xjl-CARWTeRwBEJo_mZZB1u9PmERp507D-LfuiDn8";
+  // let payload = token.substring(token.indexOf('.')+1,token.lastIndexOf('.')); 
+  // let dec = JSON.parse(base64.decode(payload));
+  // console.log(dec);
+  
   return(
     <div>
       {/* <button onClick={checkCookie}>(버튼입니다)cookie저장하기</button> */}
@@ -114,17 +119,6 @@ function Cookie () {
       />
       <button onClick={clickLogin}>LOGIN</button>
       <button onClick={clickLogout}>LOGOUT</button>
-      <div>
-        로그인 버튼을 눌러서 나온 내용 id : {id}, nickname: {nickname}
-      </div>
-    </div>
-  );
-}
-
-function LoginCheck () {
-  return(
-    <div>
-      로그인 되었습니다.
     </div>
   );
 }

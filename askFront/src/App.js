@@ -34,7 +34,6 @@ function App() {
 
   return (
     <>
-    안녕하세요.
       {/* <Routes> */}
         {/* 로그인 전 화면 */}
         {/* <Route path="/" element={<MainSection />} />
