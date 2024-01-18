@@ -12,7 +12,7 @@ function LoginMainSection() {
     // App부분에서 Login인 부분 따로 설정해놈.
 
     const location = useLocation();
-    const users = location.state.user;
+    const users = location.state.dec;
     
     console.log(location.state);
 
@@ -20,7 +20,7 @@ function LoginMainSection() {
         <div>
             <Header />
             <div className="h-screen w-11/12 m-auto mt-6 pt-6">
-                <LoginSidebar users={users} />
+                <LoginSidebar users={users}/>
                 <LoginContent />
             </div>
             <Footer />

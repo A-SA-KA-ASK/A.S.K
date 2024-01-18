@@ -10,7 +10,7 @@ function LoginSidebar ({users}) {
         <div className=" w-1/6 h-96 float-left m-7 p-3">
             <div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
-                    안녕하세요. 님 
+                    안녕하세요. {users.nickname}님 
                 </div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
                     <button onClick={()=> navigator('/write')}>글쓰기</button>
