@@ -59,6 +59,7 @@ function Cookie () {
     // console.log(testGetCK);
 
   }
+  // 예외처리
 
   let dec;
 
