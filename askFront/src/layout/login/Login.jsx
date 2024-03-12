@@ -1,6 +1,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Cookies } from "react-cookie";
+import base64 from 'base-64';
+
+
+const cookies = new Cookies();
+
+export const setCookie = (name, value, option) => { // 쿠키 저장하는 함수 key, value, option 세 가지 파라미터를 받음
+  return cookies.set(name, value, { ...option });
+};
+
+export const getCookie = (name) => { // 쿠키 가져오는 함수
+  return cookies.get(name);
+};
+
+export const removeCookie = (name, option) => { // 쿠키 삭제하는 함수
+  return cookies.remove(name, { ...option });
+};
 
 function Login() {
 
@@ -9,10 +26,6 @@ function Login() {
     // 로그인 버튼 클릭시 일치 하지 않는다라는 문구 출력
     // 로그인 이메일 형식 아니면 로그인 버튼 막기
 
-    // const navigate = useNavigate();
-
-    const [user, setUser] = useState([]); // data를 받아와서 보여줌.
-    const [err, setErr] = useState(""); // 에러메세지 나타나게 함.
     const [ep, setEP] = useState({ // 사용자 아이디, 비밀번호 axios로 가져오기 위해 사용.
         nickname: "",
         id: "",
@@ -30,21 +43,32 @@ function Login() {
     }
 
     // 서버에서 JWT토큰을 보내고 있어서 cookie를 사용하여 받아오려고함.
-    const onSubmit = () => {
-        axios.post("http://13.124.168.202:7777/api/v1/users/login", {
-            nickname,
-            id,
-            password
-        }).then((res) => {
-            setUser(res.data);
+    const clickLogin = async () => {
+        const config = await axios({
+          id,
+          password,
+          nickname,
+          method: 'post',
+          url: 'http://13.124.168.202:7777/api/v1/users/login',
+          data: ep, // useState부분에서 id값과 password값을 user로 받아옴
         }).catch((err) => {
-            setErr(err.message);
+            alert('로그인이 실패했습니다. 정보가 올바른지 다시 확인해주세요');
         })
+        const { data } = config; // 총 내용을 data로 받아서 연결을 시킴.
+        setCookie('accessToken', data);
     }
 
-    useEffect(() => {
-        onSubmit();
-    }, []);
+    // jwt토큰 디코딩 하는 부분
+    const testGetCK = getCookie('accessToken'); // jwt를 가져옴
+
+    let payload = testGetCK.substring(testGetCK.indexOf('.')+1,testGetCK.lastIndexOf('.'));  
+    let dec = JSON.parse(base64.decode(payload)); 
+
+    const onClickLogin = () => {
+        clickLogin();
+        navigate('/loginmain', {state:{dec:dec}})
+    }
+
 
     // 일반적인 페이지 이동
     const navigate = useNavigate();
@@ -68,12 +92,12 @@ function Login() {
                             <label for="id" class="block mb-2 text-sm font-medium text-gray-900 ">이메일</label>
                             <input type="id" name="id" id="id" onChange={onChange} value={id} class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="name@company.com" required="" />
                         </div>
-                        {err}
+                        example@example.com
                         <div>
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">비밀번호</label>
                             <input type="password" name="password" id="password" onChange={onChange} value={password}  placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " required="" />
                         </div>
-                        {err}
+                        exPassword1
                         <div class="flex items-center justify-between">
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
@@ -86,7 +110,7 @@ function Login() {
                             <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotE')}>아이디 찾기</button>
                             <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotP')}>비밀번호 찾기</button>
                         </div>
-                            <button type="submit" onClick={() => navigate('/loginmain', {state:{user:user}})} class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">
+                            <button type="submit" onClick={onClickLogin} class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">
                                 로그인
                             </button>
                         <p class="text-sm font-light text-gray-500 "> 회원이 아니시라고요? 
