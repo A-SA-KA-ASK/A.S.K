@@ -1,16 +1,27 @@
-import axios from "axios";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { removeCookie } from "../../layout/login/Login";
 
 function LoginSidebar ({users}) {
 
     const navigator = useNavigate();
+
+    const clickLogout = async () => {
+        removeCookie('accessToken')
+        navigator('/');
+      }
+
+      console.log(clickLogout);
 
     return(
         <div className=" w-1/6 h-96 float-left m-7 p-3">
             <div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
                     안녕하세요. {users.nickname}님 
+                    <div>
+                        <button onClick={clickLogout}>
+                            로그아웃
+                        </button>
+                    </div>
                 </div>
                 <div className="border-2 rounded-2xl text-center p-4 mb-4">
                     <button onClick={()=> navigator('/write')}>글쓰기</button>

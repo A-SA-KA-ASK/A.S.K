@@ -42,6 +42,8 @@ function Login() {
         })
     }
 
+    const expiration = new Date(Date.now() + 3600 * 1000);
+
     // 서버에서 JWT토큰을 보내고 있어서 cookie를 사용하여 받아오려고함.
     const clickLogin = async () => {
         const config = await axios({
@@ -55,29 +57,34 @@ function Login() {
             alert('로그인이 실패했습니다. 정보가 올바른지 다시 확인해주세요');
         })
         const { data } = config; // 총 내용을 data로 받아서 연결을 시킴.
-        setCookie('accessToken', data);
+        setCookie('accessToken', data, expiration); // 1시간 
+        setCookie('refreshToken', data, expiration - 600);
     }
 
+    let dec;
+
     // jwt토큰 디코딩 하는 부분
-    const testGetCK = getCookie('accessToken'); // jwt를 가져옴
-
-    let payload = testGetCK.substring(testGetCK.indexOf('.')+1,testGetCK.lastIndexOf('.'));  
-    let dec = JSON.parse(base64.decode(payload)); 
-
+    if(getCookie('accessToken')){
+        const testGetCK = getCookie('accessToken'); // jwt를 가져옴
+        let payload = testGetCK.substring(testGetCK.indexOf('.')+1,testGetCK.lastIndexOf('.'));  
+        dec = JSON.parse(base64.decode(payload)); 
+    } 
+    
     const onClickLogin = () => {
         clickLogin();
         navigate('/loginmain', {state:{dec:dec}})
     }
 
-
     // 일반적인 페이지 이동
     const navigate = useNavigate();
-
     // <button onClick={()=> navigate('/')}>이동</button>
 
     const [emailErr, setEmailErr] = useState(); // 이메일 에러문구 나타내기
     const [pwErr, setPwErr] = useState(); // 비밀번호 에러문구 나타내기
  
+
+    const isValid = id.includes("@") && password.length >= 5;
+
     return(
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-slate-100">
             <div href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 ">
@@ -110,7 +117,7 @@ function Login() {
                             <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotE')}>아이디 찾기</button>
                             <button class="text-sm font-medium text-primary-600 hover:underline" onClick={()=> navigate('/forgotP')}>비밀번호 찾기</button>
                         </div>
-                            <button type="submit" onClick={onClickLogin} class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">
+                            <button type="submit" onClick={onClickLogin} disabled={isValid ? false : true} class="w-full bg-blue-600 text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500">
                                 로그인
                             </button>
                         <p class="text-sm font-light text-gray-500 "> 회원이 아니시라고요? 
