@@ -40,6 +40,8 @@ function Cookie () {
     })
   }
 
+  // let testGetCK = '';
+
   // 로그인
   const clickLogin = async () => {
     const config = await axios({
@@ -50,27 +52,37 @@ function Cookie () {
       url: 'http://13.124.168.202:7777/api/v1/users/login',
       data: user, // useState부분에서 id값과 password값을 user로 받아옴
     }).catch((err) => {
-      alert('로그인이 실패했습니다. 정보가 올바른지 다시 확인해주세요');
     })
     const { data } = config; // 총 내용을 data로 받아서 연결을 시킴.
     setCookie('accessToken', data);
+    // testGetCK = getCookie('accessToken');
+    // console.log(testGetCK);
+
   }
+
+  let dec;
+
+  // jwt토큰 디코딩 하는 부분
+  if(getCookie('accessToken')){
+      const testGetCK = getCookie('accessToken'); // jwt를 가져옴
+      let payload = testGetCK.substring(testGetCK.indexOf('.')+1,testGetCK.lastIndexOf('.'));  
+      dec = JSON.parse(base64.decode(payload)); 
+  } 
 
   // 회원가입
   const clickLogout = async () => {
     removeCookie('accessToken')
   }
 
-  const testGetCK = getCookie('accessToken'); // jwt를 가져옴
-
-  let payload = testGetCK.substring(testGetCK.indexOf('.')+1,testGetCK.lastIndexOf('.'));  
-  let dec = JSON.parse(base64.decode(payload)); 
-  console.log(dec.id);
-  console.log(dec.nickname);
+  // jwt 디코딩
+  // let testGetCK = getCookie('accessToken');
+  // let payload = testGetCK.substring(testGetCK.indexOf('.')+1,testGetCK.lastIndexOf('.'));  
+  // let dec = JSON.parse(base64.decode(payload)); 
+  // console.log(dec.id);
+  // console.log(dec.nickname);
 
   // 토큰은 새로고침 및 사이트를 나갔다가 들어오면 사라진다. 
   // 토큰은 accessToken과  refreshToken이 존재 refresh를 사용하면 로그인을 지속적으로 유지 가능.
-
 
   return(
     <div>
